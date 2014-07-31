@@ -1,0 +1,20 @@
+{
+  "name": "hiptest",
+  "version": "0.0.1",
+  "homepage": "https://github.com/msantaquiteria/Hipstest",
+  "authors": [
+    "Souler <soulerhyd@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "frontend/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.2.0"
+  }
+}
