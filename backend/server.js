@@ -6,6 +6,11 @@ var Sequelize = require("sequelize");
 var router = require('./router.js');
 
 var app = express();
+app.set('views', path.join(__dirname, '../frontend/views'));
+app.set('view engine', 'ejs');
+// Rutas estaticas de acceso
+app.use('/components', express.static(path.join(__dirname, '../frontend/components/')));
+app.use('/assets', express.static(path.join(__dirname, '../frontend/assets/')));
 
 var config = {
 	db: {

@@ -1,0 +1,36 @@
+.question {
+	font-size: 30px;
+	padding: 5px 15px;
+	margin: 20px 0;
+	background-color: #9befb8;
+	background-color: rgba(255, 255, 255, 0.5);
+	border-radius: 5px;
+}
+
+.question-id, .asnwers-tag {
+	font-size: 22px;
+}
+
+.answers li {
+	font-size: 26px;
+	list-style: none;
+	padding: 5px 15px;
+	margin: 20px 0;
+	width: 90%;
+	background-color: #9befb8;
+	background-color: rgba(255, 255, 255, 0.5);
+	border-radius: 5px;
+}
+
+.jumbotron-color {
+	background-color: #37de70
+}
+
+.navbar {
+	background-color: #DDD;
+	margin: 0;
+}
+
+.hipstest-brand {
+	margin: 5px;
+}

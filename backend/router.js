@@ -10,4 +10,6 @@ module.exports = function(app) {
 	app.get('/api/question/:questionid', api.quiz.renderQuestion );
 	// Fallback
 	app.get('/api/*', api.render404 );
+
+	app.get('/', function(req, res) { res.render('home.ejs'); });
 }
