@@ -22,12 +22,20 @@
 	border-radius: 5px;
 }
 
-.jumbotron-color {
-	background-color: #37de70
+section {
+	padding: 30px;
+}
+
+section.color {
+	background-color: #21ca3f;
+}
+
+section.dark {
+	background-color: #222222;
 }
 
 .navbar {
-	background-color: #DDD;
+	background-color: #FFF;
 	margin: 0;
 }
 
