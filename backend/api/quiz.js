@@ -35,6 +35,11 @@ exports.loadQuestion = function(req, res, next, id) {
 	});
 }
 
+exports.randomQuestion = function(req, res, next) {
+	Query("SELECT id FROM preguntas", [])
+		.success( function(rows) { exports.loadQuestion(req, res, next, rows[Math.floor(Math.random()*rows.length)].id) });
+}
+
 exports.renderQuestion = function(req, res) {
 	res.json(req.question);
 }

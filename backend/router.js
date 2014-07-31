@@ -5,6 +5,8 @@ module.exports = function(app) {
 
 	// #### API ####
 	// Single question
+	app.get('/api/question/random', api.quiz.randomQuestion, api.quiz.renderQuestion );
+	// Single question
 	app.get('/api/question/:questionid', api.quiz.renderQuestion );
 	// Fallback
 	app.get('/api/*', api.render404 );
