@@ -3,7 +3,7 @@ var async = require('async');
 exports.loadQuestion = function(req, res, next, id) {
 	async.parallel({
 		select_question : function(callback) {
-			var query = "SELECT * FROM preguntas preg " +
+			var query = "SELECT preg.*, asig.asignatura, plan.plan FROM preguntas preg " +
 						"LEFT JOIN asignaturas asig ON preg.id_asignatura = asig.id " +
 						"LEFT JOIN planes plan ON preg.id_plan = plan.id " +
 						"WHERE preg.id = ?";
