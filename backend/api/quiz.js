@@ -41,5 +41,5 @@ exports.randomQuestion = function(req, res, next) {
 }
 
 exports.renderQuestion = function(req, res) {
-	res.json(req.question);
+	res.json({ code: 0, data: req.question });
 }

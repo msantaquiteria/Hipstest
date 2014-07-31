@@ -31,6 +31,15 @@
 	margin: 0;
 }
 
+.navbar-toggle {
+	border: 1px solid #4CAE4C;
+	background-color: rgb(92, 184, 92);
+}
+
+.navbar-toggle > .icon-bar {
+	background-color: #EEE;
+}
+
 .hipstest-brand {
 	margin: 5px;
 }

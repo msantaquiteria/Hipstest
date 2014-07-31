@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es" ng-app="hipsTestApp">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,11 +7,14 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Jumbotron Template for Bootstrap</title>
+    <title>HipsTest. Porque hacer tests en papel sigue siendo mainstream.</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/assets/css/style.css" rel="stylesheet">
+    <!-- Angular -->
+    <script src="/components/angular/angular.min.js"></script>
+    <script src="/assets/js/app.js"></script>
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="/components/bootstrap/js/ie10-viewport-bug-workaround.js"></script>
@@ -51,17 +54,23 @@
     </div>
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron jumbotron-color">
-      <div class="container">
-        <div class="question-id"><b>LECM</b> Pregunta #1</div>
-        <div class="question">Un modulador de BLS basado en el modulador IQ tiene únicamente dos entradas: Una para la señal moduladora y otra para señal portadora. <br>Indique cómo utilizarlo para modular en BLI:</div>
+    <div class="jumbotron jumbotron-color" ng-controller="TestQuestionCtrl">
+      <div class="container" ng-show="question">
+        <div class="question-id">
+          <span><b>{{question.asignatura}}</b> Pregunta #{{question.id}}</span>
+        </div>
+        <div class="question">{{question.contenido}}</div>
         <div class="answers">
           <div class="asnwers-tag"><b>Respuestas</b></div>
           <ul>
-            <li>Desfasando 90º la señal moduladora</li>
-            <li>Desfasando 90º la señal portadora</li>
-            <li>Ninguna de las anteriores es correcta</li>
+            <li ng-repeat="answer in question.answers">{{answer.contenido}}</li>
           </ul>
+        </div>
+        <div class="col-sm-12">
+          <button type="button" class="btn btn-default" ng-click="getRandomQuestion()">
+            <span class="glyphicon glyphicon-refresh"></span>
+            <span class="collapse-desc"> Cargar otra pregunta</span>
+          </button>
         </div>
       </div>
     </div>
