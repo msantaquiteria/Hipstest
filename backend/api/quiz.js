@@ -24,7 +24,7 @@ exports.loadQuestion = function(req, res, next, id) {
 			if (results.select_question.length > 0 && results.select_answers.length > 0)
 			{
 				req.question = results.select_question[0];
-				req.question.answers = results.select_answers[0];
+				req.question.answers = results.select_answers;
 				next();
 			}
 			else
