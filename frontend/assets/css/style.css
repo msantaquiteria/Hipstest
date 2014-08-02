@@ -12,22 +12,22 @@
 }
 
 .answers li {
+	cursor: pointer;
 	font-size: 26px;
 	list-style: none;
 	padding: 5px 15px;
 	margin: 20px 0;
-	width: 90%;
 	background-color: #9befb8;
 	background-color: rgba(255, 255, 255, 0.5);
 	border-radius: 5px;
 }
 
 section {
-	padding: 30px;
+	padding: 15px;
 }
 
 section.color {
-	background-color: #21ca3f;
+	background-color: #629292;
 }
 
 section.dark {
@@ -40,8 +40,8 @@ section.dark {
 }
 
 .navbar-toggle {
-	border: 1px solid #4CAE4C;
-	background-color: rgb(92, 184, 92);
+	border: none;
+	background-color: #629292;
 }
 
 .navbar-toggle > .icon-bar {
@@ -53,4 +53,22 @@ section.dark {
 	position: relative;
 	top: 20px;
 	z-index: 1;
+}
+
+.bg-correct {
+	background-color : #A0FFA0 !important;
+}
+
+.bg-wrong {
+	background-color : #FFA0A0 !important;
+}
+
+/*XS Fixes*/
+@media (max-width: 360px){
+	.question {
+		font-size: 20px;
+	}
+	.answers li {
+		font-size: 18px;
+	}
 }
