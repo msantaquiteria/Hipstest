@@ -5,7 +5,7 @@ angular.module('hipsTestApp', [])
         $scope.answered = false;
 
         $scope.getRandomQuestion = function() {
-            $http.get('/api/question/random')
+            $http.get('api/question/random')
                 .success( function(data) {
                     $scope.question = data.data;
                     $scope.question.answers = shuffle($scope.question.answers);
