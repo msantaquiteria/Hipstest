@@ -11,6 +11,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="/assets/css/style.css" rel="stylesheet">
     <!-- Angular -->
     <script src="/components/angular/angular.min.js"></script>
@@ -21,17 +22,17 @@
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <script src="/https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="/https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
 
   <body>
-
+    <a id="top"></a>
     <div class="navbar" role="navigation" style="background-color:">
       <div class="container">
         <div class="navbar-header">
-          <a href="/"><img src="/assets/imgs/brand.png" class="hipstest-brand" /></a>
+          <a href=""><img src="/assets/imgs/brand.png" class="hipstest-brand" /></a>
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
@@ -48,24 +49,26 @@
       </div>
     </div>
 
-    <!-- Main jumbotron for a primary marketing message or call to action -->
     <section class="color" ng-controller="TestQuestionCtrl">
-      <div class="container" ng-show="question">
-        <div class="question-id">
-          <span><b>{{question.asignatura}}</b> Pregunta #{{question.id}}</span>
-        </div>
-        <div class="question">{{question.contenido}}</div>
-        <div class="answers">
-          <div class="asnwers-tag"><b>Respuestas</b></div>
-          <ul>
-            <li ng-repeat="answer in question.answers">{{answer.contenido}}</li>
-          </ul>
-        </div>
-        <div class="col-sm-12">
-          <button type="button" class="btn btn-default" ng-click="getRandomQuestion()">
-            <span class="glyphicon glyphicon-refresh"></span>
-            <span class="collapse-desc"> Cargar otra pregunta</span>
-          </button>
+      <div class="container">
+        <center><i class="fa fa-spinner fa-spin fa-4x" ng-if="!question"></i></center>
+        <div class="row" ng-if="question">
+          <div class="question-id">
+            <span><b>{{question.asignatura}}</b> Pregunta #{{question.id}}</span>
+          </div>
+          <div class="question">{{question.contenido}}</div>
+          <div class="answers">
+            <div class="asnwers-tag"><b>Respuestas</b></div>
+            <ul class="col-sm-offset-1 col-sm-10">
+              <li ng-repeat="answer in question.answers" ng-class="{ 'bg-correct': answered && answer.correcta }" ng-click="pickAnswer(answer, $event)">{{answer.contenido}}</li>
+            </ul>
+          </div>
+          <div class="col-sm-12">
+            <button type="button" class="btn btn-default" ng-click="getRandomQuestion()">
+              <span class="glyphicon glyphicon-refresh"></span>
+              <span class="collapse-desc"> Cargar otra pregunta</span>
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -74,51 +77,51 @@
     <div class="container">
       <!-- Example row of columns -->
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-sm-4">
           <h2>Heading</h2>
           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
           <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
         </div>
-        <div class="col-md-4">
+        <div class="col-sm-4">
           <h2>Heading</h2>
           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
           <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
        </div>
-        <div class="col-md-4">
+        <div class="col-sm-4">
           <h2>Heading</h2>
           <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
           <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-sm-4">
           <h2>Heading</h2>
           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
           <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
         </div>
-        <div class="col-md-4">
+        <div class="col-sm-4">
           <h2>Heading</h2>
           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
           <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
        </div>
-        <div class="col-md-4">
+        <div class="col-sm-4">
           <h2>Heading</h2>
           <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
           <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-sm-4">
           <h2>Heading</h2>
           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
           <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
         </div>
-        <div class="col-md-4">
+        <div class="col-sm-4">
           <h2>Heading</h2>
           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
           <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
        </div>
-        <div class="col-md-4">
+        <div class="col-sm-4">
           <h2>Heading</h2>
           <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
           <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
@@ -135,7 +138,7 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="/components/jquery/dist/jquery.min.js"></script>
     <script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
   </body>
 </html>

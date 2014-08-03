@@ -1,19 +1,15 @@
 var async = require('async');
+var Queries = require('./queries.js');
 
 exports.loadQuestion = function(req, res, next, id) {
 	async.parallel({
 		select_question : function(callback) {
-			var query = "SELECT preg.*, asig.asignatura, plan.plan FROM preguntas preg " +
-						"LEFT JOIN asignaturas asig ON preg.id_asignatura = asig.id " +
-						"LEFT JOIN planes plan ON preg.id_plan = plan.id " +
-						"WHERE preg.id = ?";
-
-			Query(query, [ id ])
+			Query(Queries.SEL_QUESTION_DATA, [ id ])
 				.success( function(rows) { callback(null, rows) })
 				.error( callback );
 		},
 		select_answers : function(callback) {
-			Query("SELECT * FROM respuestas WHERE id_pregunta = ?", [ id ])
+			Query(Queries.SEL_QUESTION_ANSWERS, [ id ])
 				.success( function(rows) { callback(null, rows) })
 				.error( callback );
 		}
@@ -25,6 +21,9 @@ exports.loadQuestion = function(req, res, next, id) {
 			{
 				req.question = results.select_question[0];
 				req.question.answers = results.select_answers;
+
+				// Preparamos la variable para el middleware generico de render
+				req.result = req.question;
 				next();
 			}
 			else
@@ -35,11 +34,31 @@ exports.loadQuestion = function(req, res, next, id) {
 	});
 }
 
-exports.randomQuestion = function(req, res, next) {
-	Query("SELECT id FROM preguntas", [])
-		.success( function(rows) { exports.loadQuestion(req, res, next, rows[Math.floor(Math.random()*rows.length)].id) });
+exports.loadSubject = function(req, res, next, id) {
+	Query(Queries.SEL_SUBJECT_DATA, [id])
+		.success( function(rows) {
+			if (!!rows.length)
+			{
+				req.subject = rows[0];
+
+				// Preparamos la variable para el middleware generico de render
+				req.result = req.subject;
+				next();
+			}
+			else
+				res.json(404, {code: 1, msg: "NO_SUCH_SUBJECT_ID"});
+		})
+		.error( function(err) { res.json(500, {code: 1, msg: err}) } );
 }
 
-exports.renderQuestion = function(req, res) {
-	res.json({ code: 0, data: req.question });
+exports.listSubjects = function(req, res, next) {
+	Query(Queries.SEL_ALL_SUBJECTS, [])
+		.success( function(rows) { req.result = rows; next() } )
+		.error( function(err) { res.json(500, {code: 1, msg: err}) } );
+}
+
+exports.randomQuestion = function(req, res, next) {
+	Query(Queries.SEL_ALL_QUESTIONS_ID, [])
+		.success( function(rows) { exports.loadQuestion(req, res, next, rows[Math.floor(Math.random()*rows.length)].id) } )
+		.error( function(err) { res.json(500, {code: 1, msg: err}) } );
 }
