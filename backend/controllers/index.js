@@ -7,7 +7,7 @@ exports.render.home = function(req, res, next) {
 }
 
 function loadTemplate(path) {
-	var filePath = app.get('views').replace(/\/$/,'') + '\\' + path.replace(/^\//, '') + '.ejs';
+	var filePath = app.get('views').replace(/\/$/,'') + '/' + path.replace(/^\//, '') + '.ejs';
 	var template = fs.readFileSync(filePath, 'utf8');
 
 	if ( app.get('url_append').length )
