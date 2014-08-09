@@ -9,6 +9,9 @@ exports.render.home = function(req, res, next) {
 function loadTemplate(path) {
 	var filePath = app.get('views').replace(/\/$/,'') + '\\' + path.replace(/^\//, '') + '.ejs';
 	var template = fs.readFileSync(filePath, 'utf8');
-	template = template.replace(/(src|href)=(['"])\//, "$1=$2" + app.get('url_append'))
+
+	if ( app.get('url_append').length )
+		template = template.replace(/(src|href)=(['"])\//g, "$1=$2/" + app.get('url_append') + "/")
+
 	return template;
 }	
