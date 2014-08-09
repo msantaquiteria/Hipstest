@@ -3,25 +3,18 @@ var http = require('http');
 var path = require('path');
 var Sequelize = require("sequelize");
 
+var config = require('./config.js').config;
 var router = require('./router.js');
 
-var app = express();
+global.app = express();
+
 app.set('views', path.join(__dirname, '../frontend/views'));
 app.set('view engine', 'ejs');
+app.set('url_append', config.url_append)
 
 // Rutas estaticas de acceso
 app.use('/components', express.static(path.join(__dirname, '../frontend/components/')));
 app.use('/assets', express.static(path.join(__dirname, '../frontend/assets/')));
-
-var config = {
-	db: {
-		user: 'root',
-		pass: 'root',
-		db_name: 'hiptests',
-		dialect: 'mysql'
-	},
-	port: 3000
-}
 
 router(app);
 

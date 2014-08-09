@@ -1,4 +1,5 @@
 var api = require('./api');
+var site = require('./controllers');
 
 module.exports = function(app) {
 	app.param('questionid', api.quiz.loadQuestion);
@@ -18,5 +19,5 @@ module.exports = function(app) {
 	// API Fallback
 	app.get('/api/*', api.render404 );
 
-	app.get('/', function(req, res) { res.render('home.ejs'); });
+	app.get('/', site.render.home);
 }
