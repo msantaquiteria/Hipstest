@@ -16,15 +16,19 @@
     <!-- Angular -->
     <script src="/components/angular/angular.min.js"></script>
     <script src="/assets/js/app.js"></script>
+    <!-- MathJax -->
+    <script src="/components/angular/angular.min.js"></script>
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="/components/bootstrap/js/ie10-viewport-bug-workaround.js"></script>
+    <!-- <script src="/components/bootstrap/js/ie10-viewport-bug-workaround.js"></script> -->
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-      <script src="/https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="/https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script type="text/javascript" src="/components/MathJax/MathJax.js"></script>
+    <script src="/assets/js/mathjax.conf.js"></script>
   </head>
 
   <body>
@@ -78,9 +82,15 @@
       <!-- Example row of columns -->
       <div class="row">
         <div class="col-sm-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+          <h2>Latex Demo</h2>
+            <h3>The Lorenz Equations</h3>
+            <p>
+            \begin{align}
+            \dot{x} & = \sigma(y-x) \\
+            \dot{y} & = \rho x - y - xz \\
+            \dot{z} & = -\beta z + xy
+            \end{align}
+            </p>
         </div>
         <div class="col-sm-4">
           <h2>Heading</h2>
