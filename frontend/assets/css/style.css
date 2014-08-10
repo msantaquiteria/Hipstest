@@ -9,6 +9,7 @@
 
 .question-id, .asnwers-tag {
 	font-size: 22px;
+	color: #FFF;
 }
 
 .answers li {
@@ -27,7 +28,7 @@ section {
 }
 
 section.color {
-	background-color: #629292;
+	background-color: #2980B9;
 }
 
 section.dark {
@@ -41,7 +42,7 @@ section.dark {
 
 .navbar-toggle {
 	border: none;
-	background-color: #629292;
+	background-color: #2980B9;
 }
 
 .navbar-toggle > .icon-bar {
