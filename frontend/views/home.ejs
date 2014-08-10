@@ -74,6 +74,16 @@
             </button>
           </div>
         </div>
+        <div class="col-sm-offset-1 col-sm-10" ng-show="correctPercentage > 0 || wrongPercentage > 0">
+          <div class="progress">
+            <div class="progress-bar progress-bar-success" style="width: {{correctPercentage}}%">
+              Aciertos: {{nCorrect}}
+            </div>
+            <div class="progress-bar progress-bar-danger" style="width: {{wrongPercentage}}%">
+              Fallos: {{nWrong}}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
     <section class="dark"></section>

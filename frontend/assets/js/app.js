@@ -4,6 +4,14 @@ angular.module('hipsTestApp', [])
         $scope.question = null;
         $scope.answered = false;
 
+        $scope.nCorrect = 0;
+        $scope.nWrong = 0;
+        $scope.correctPercentage = 0;
+        $scope.wrongPercentage = 0;
+
+        $scope.$watch('nCorrect', calcAnswersPercentage);
+        $scope.$watch('nWrong', calcAnswersPercentage);
+
         $scope.getRandomQuestion = function() {
             $http.get('/api/question/random')
                 .success( function(data) {
@@ -27,7 +35,14 @@ angular.module('hipsTestApp', [])
             $scope.answered = true;
 
             if (!answer.correcta)
+            {
                 $($event.target).addClass("bg-wrong");
+                $scope.nWrong++;
+            }
+            else
+            {
+                $scope.nCorrect++;
+            }
 
             $timeout( $scope.getRandomQuestion, 1000);
         }
@@ -41,6 +56,11 @@ angular.module('hipsTestApp', [])
             for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
             return o;
         };
+
+        function calcAnswersPercentage() {
+            $scope.correctPercentage = Math.ceil(100*$scope.nCorrect/($scope.nCorrect+$scope.nWrong));
+            $scope.wrongPercentage = Math.floor(100*$scope.nWrong/($scope.nCorrect+$scope.nWrong));
+        }
     }
 ]);
 
