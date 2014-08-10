@@ -77,10 +77,10 @@
         <div class="col-sm-offset-1 col-sm-10" ng-show="correctPercentage > 0 || wrongPercentage > 0">
           <div class="progress">
             <div class="progress-bar progress-bar-success" style="width: {{correctPercentage}}%">
-              Aciertos: {{nCorrect}}
+              <span class="hidden-xs">Aciertos:</span> {{nCorrect}}
             </div>
             <div class="progress-bar progress-bar-danger" style="width: {{wrongPercentage}}%">
-              Fallos: {{nWrong}}
+              <span class="hidden-xs">Fallos:</span> {{nWrong}}
             </div>
           </div>
         </div>
