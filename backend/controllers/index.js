@@ -3,7 +3,7 @@ var fs = require('fs');
 
 exports.render = {};
 exports.render.home = function(req, res, next) {
-	res.end(ejs.render(loadTemplate('home')));
+	res.send(ejs.render(loadTemplate('home')));
 }
 
 function loadTemplate(path) {
