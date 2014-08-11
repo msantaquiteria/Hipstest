@@ -55,7 +55,7 @@
     <section class="color" ng-controller="TestQuestionCtrl">
       <div class="container">
         <center><i class="fa fa-spinner fa-spin fa-4x" ng-if="!question"></i></center>
-        <div class="row" ng-if="question">
+        <div id="question" class="row" ng-if="question">
           <div class="question-id">
             <span><b>{{question.asignatura}}</b> Pregunta #{{question.id}}</span>
           </div>

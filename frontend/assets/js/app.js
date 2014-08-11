@@ -41,6 +41,9 @@ angular.module('hipsTestApp', [])
                     // Scroll to the element
                     $location.hash('top');
                     $anchorScroll();
+
+                    // Force Rerender of MathJax
+                    $timeout ( function() { MathJax.Hub.Typeset("question") } );
                 })
                 .error( function(err) {
                     console.log("ERROR: " + JSON.stringify(err));
@@ -79,7 +82,6 @@ angular.module('hipsTestApp', [])
         }
 
         function processQuestionIdxChange(newIdx, oldIdx) {
-            console.log("OLD IDX: " + oldIdx + ". NEW IDX: " + newIdx );
             if (newIdx < 0)
             {
                 $scope.currentQuestionIdx = oldIdx;
