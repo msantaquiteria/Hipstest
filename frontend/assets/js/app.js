@@ -6,6 +6,8 @@ angular.module('hipsTestApp', [])
 
         $scope.question = null;
 
+        $scope.loadingNextQuestion = false;
+
         $scope.nCorrect = 0;
         $scope.nWrong = 0;
         $scope.correctPercentage = 0;
@@ -26,8 +28,10 @@ angular.module('hipsTestApp', [])
         };
 
         $scope.getRandomQuestion = function() {
+            $scope.loadingNextQuestion = true;
             $http.get('/api/question/random')
                 .success( function(data) {
+                    $scope.loadingNextQuestion = false
                     $scope.question = data.data;
                     $scope.question.answers = shuffle($scope.question.answers);
                     $scope.question.answered = false;

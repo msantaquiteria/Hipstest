@@ -69,11 +69,17 @@
           <div class="col-sm-offset-1 col-sm-10">
             <button type="button" class="btn btn-default col-xs-4 col-md-2" ng-click="prevQuestion()" ng-disabled="questionHistory.length <= 1 || currentQuestionIdx <= 0">
               <span class="fa fa-angle-left"></span>
-              <span class="collapse-desc">Anterior</span>
+              <span>Anterior</span>
             </button>
-            <button type="button" class="btn btn-default col-xs-offset-4 col-xs-4 col-md-offset-8 col-md-2" ng-click="nextQuestion()">
-              <span class="collapse-desc">Siguiente</span>
-              <span class="fa fa-angle-right"></span>
+            <button type="button" class="btn btn-default col-xs-offset-4 col-xs-4 col-md-offset-8 col-md-2" ng-click="nextQuestion()" ng-disabled="loadingNextQuestion">
+              <div ng-show="loadingNextQuestion">
+                <i class="fa fa-spinner fa-spin"></i>
+                <span class="collapse-desc">Cargando...</span>
+              </div>
+              <div ng-show="!loadingNextQuestion">
+                <span>Siguiente</span>
+                <span class="fa fa-angle-right"></span>
+              </div>
             </button>
           </div>
           <!--
