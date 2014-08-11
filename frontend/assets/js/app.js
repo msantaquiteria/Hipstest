@@ -1,23 +1,38 @@
 angular.module('hipsTestApp', [])
 .controller('TestQuestionCtrl', ['$scope', '$http', '$timeout', '$anchorScroll', '$location',
     function($scope, $http, $timeout, $anchorScroll, $location) {
+        $scope.questionHistory = [];
+        $scope.currentQuestionIdx = -1; // Question Index inside questionHisotry
+
         $scope.question = null;
-        $scope.answered = false;
 
         $scope.nCorrect = 0;
         $scope.nWrong = 0;
         $scope.correctPercentage = 0;
         $scope.wrongPercentage = 0;
+        $scope.blankPercentage = 0;
 
         $scope.$watch('nCorrect', calcAnswersPercentage);
         $scope.$watch('nWrong', calcAnswersPercentage);
+
+        $scope.$watch('currentQuestionIdx', processQuestionIdxChange);
+
+        $scope.prevQuestion = function() {
+            $scope.currentQuestionIdx--;
+        };
+
+        $scope.nextQuestion = function() {
+            $scope.currentQuestionIdx++;
+        };
 
         $scope.getRandomQuestion = function() {
             $http.get('/api/question/random')
                 .success( function(data) {
                     $scope.question = data.data;
                     $scope.question.answers = shuffle($scope.question.answers);
-                    $scope.answered = false;
+                    $scope.question.answered = false;
+
+                    $scope.questionHistory.push($scope.question);
 
                     // Scroll to the element
                     $location.hash('top');
@@ -29,26 +44,22 @@ angular.module('hipsTestApp', [])
         }
 
         $scope.pickAnswer = function(answer, $event) {
-            if ($scope.answered)
+            if ($scope.question.answered)
                 return;
 
-            $scope.answered = true;
+            $scope.question.answered = true;
+            answer.picked = true;
 
             if (!answer.correcta)
-            {
-                $($event.target).addClass("bg-wrong");
                 $scope.nWrong++;
-            }
             else
-            {
                 $scope.nCorrect++;
-            }
 
-            $timeout( $scope.getRandomQuestion, 1000);
+            $timeout( $scope.nextQuestion, 1000);
         }
 
         $scope.init = function() {
-            $scope.getRandomQuestion();
+            $scope.nextQuestion();
         }
         $scope.init();
 
@@ -58,9 +69,25 @@ angular.module('hipsTestApp', [])
         };
 
         function calcAnswersPercentage() {
-            $scope.correctPercentage = Math.ceil(100*$scope.nCorrect/($scope.nCorrect+$scope.nWrong));
-            $scope.wrongPercentage = Math.floor(100*$scope.nWrong/($scope.nCorrect+$scope.nWrong));
+            $scope.correctPercentage = Math.ceil(100*$scope.nCorrect/($scope.questionHistory.length));
+            $scope.wrongPercentage = Math.floor(100*$scope.nWrong/($scope.questionHistory.length));
+            $scope.blankPercentage = 100 - ($scope.correctPercentage + $scope.wrongPercentage);
         }
+
+        function processQuestionIdxChange(newIdx, oldIdx) {
+            console.log("OLD IDX: " + oldIdx + ". NEW IDX: " + newIdx );
+            if (newIdx < 0)
+            {
+                $scope.currentQuestionIdx = oldIdx;
+                return;
+            }
+
+            if (newIdx < $scope.questionHistory.length) // We are moving inside the history
+                $scope.question = $scope.questionHistory[newIdx];
+            else // Getting new remote question
+                $scope.getRandomQuestion();
+        }
+
     }
 ]);
 
