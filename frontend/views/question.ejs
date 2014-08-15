@@ -1,0 +1,47 @@
+<div ng-if="isSubjectslected()">
+<center><i class="fa fa-spinner fa-spin fa-4x" ng-if="!question"></i></center>
+<div id="question" class="row" ng-if="question">
+  <div class="question-id">
+    <span><b>{{question.asignatura}}</b> Pregunta #{{question.id}}</span>
+  </div>
+  <div class="question">{{question.contenido}}</div>
+  <div class="answers">
+    <div class="asnwers-tag"><b>Respuestas</b></div>
+    <ul class="col-sm-offset-1 col-sm-10">
+      <li ng-repeat="answer in question.answers" ng-class="{ 'bg-correct': question.answered && answer.correcta, 'bg-wrong': question.answered && !answer.correcta && answer.picked }" ng-click="pickAnswer(answer, $event)">{{answer.contenido}}</li>
+    </ul>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-offset-1 col-sm-10">
+    <button type="button" class="btn btn-default col-xs-5 col-md-2" ng-click="prevQuestion()" ng-disabled="questionHistory.length <= 1 || currentQuestionIdx <= 0">
+      <span class="fa fa-angle-left"></span>
+      <span>Anterior</span>
+    </button>
+    <button type="button" class="btn btn-default col-xs-offset-2 col-xs-5 col-md-offset-8 col-md-2" ng-click="nextQuestion()" ng-disabled="loadingNextQuestion">
+      <div ng-show="loadingNextQuestion">
+        <i class="fa fa-spinner fa-spin"></i>
+        <span class="collapse-desc">Cargando...</span>
+      </div>
+      <div ng-show="!loadingNextQuestion">
+        <span>Siguiente</span>
+        <span class="fa fa-angle-right"></span>
+      </div>
+    </button>
+  </div>
+</div>
+  <div class="col-sm-offset-1 col-sm-10" ng-show="correctPercentage > 0 || wrongPercentage > 0">
+    <div class="progress">
+      <div class="progress-bar progress-bar-success" style="width: {{correctPercentage}}%">
+        <span class="hidden-xs">Aciertos:</span> {{nCorrect}}
+      </div>
+      <div class="progress-bar progress-bar-danger" style="width: {{wrongPercentage}}%">
+        <span class="hidden-xs">Fallos:</span> {{nWrong}}
+      </div>
+      <div class="progress-bar" style="width: {{blankPercentage}}%">
+        <span class="hidden-xs">En blanco:</span> {{(questionHistory.length - (nCorrect + nWrong)) - 1}}
+      </div>
+    </div>
+  </div>
+</div>

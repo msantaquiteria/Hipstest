@@ -1,6 +1,8 @@
 angular.module('hipsTestApp', [])
 .controller('TestQuestionCtrl', ['$scope', '$http', '$timeout', '$anchorScroll', '$location',
     function($scope, $http, $timeout, $anchorScroll, $location) {
+        window.$scope = $scope;
+
         $scope.questionHistory = [];
         $scope.currentQuestionIdx = -1; // Question Index inside questionHisotry
 
@@ -19,6 +21,7 @@ angular.module('hipsTestApp', [])
 
         $scope.$watch('currentQuestionIdx', processQuestionIdxChange);
 
+
         $scope.prevQuestion = function() {
             $scope.currentQuestionIdx--;
         };
@@ -29,8 +32,14 @@ angular.module('hipsTestApp', [])
 
         $scope.getRandomQuestion = function() {
             $scope.loadingNextQuestion = true;
-            $http.get('/api/question/random')
+
+            var apiRoute = '/api/question/random/';
+            if ($scope.isSubjectslected() && $scope.currentSubject !== undefined)
+                apiRoute += $scope.currentSubject.id;
+
+            $http.get(apiRoute)
                 .success( function(data) {
+                    $('#question .MathJax').remove();
                     $scope.loadingNextQuestion = false
                     $scope.question = data.data;
                     $scope.question.answers = shuffle($scope.question.answers);
@@ -62,13 +71,9 @@ angular.module('hipsTestApp', [])
             else
                 $scope.nCorrect++;
 
+            $scope.loadingNextQuestion = true;
             $timeout( $scope.nextQuestion, 1000);
         }
-
-        $scope.init = function() {
-            $scope.nextQuestion();
-        }
-        $scope.init();
 
         var shuffle = function(o) { //v1.0 Cortesia de Google
             for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
@@ -94,6 +99,38 @@ angular.module('hipsTestApp', [])
                 $scope.getRandomQuestion();
         }
 
+        /* SUBJECT HANDLING STUFF */
+        $scope.subjectList = [];
+        $scope.currentSubject = null;
+
+        $scope.selectSubject = function(subject) {
+            $scope.currentSubject = subject;
+            // Cargamos una pregunta en base a la seleccion de asignatura
+            $scope.nextQuestion();
+        }
+
+        $scope.getSubjectsList = function() {
+            $http.get('/api/subject')
+                .success( function(data) {
+                    $scope.subjectList = data.data;
+                })
+                .error( function(err) {
+                    console.log("ERROR: " + JSON.stringify(err));
+                })
+        }
+
+        // Helper para evitar confusiones y expresiones booleanas largas
+        $scope.isSubjectslected = function() {
+            return $scope.currentSubject !== null;
+        }
+
+        /* INICIALIZACION DE LA APP, SIEMPRE AL FINAL*/
+        $scope.init = function() {
+            $scope.getSubjectsList();
+            // A esto lo llamamos una vez se ha elegido asignatura, para evitar cargar una pregunta no deseada en el historial
+            //$scope.nextQuestion();
+        }
+        $scope.init();
     }
 ]);
 

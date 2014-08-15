@@ -1,0 +1,8 @@
+<center><i class="fa fa-spinner fa-spin fa-4x" ng-if="!subjectList.length"></i></center>
+<div ng-show="!isSubjectslected() && subjectList.length" class="row">
+  <div class="subjects-tag">Elige una <b>asignatura</b></div>
+  <ul class="subjects col-sm-offset-1 col-sm-10">
+    <li ng-click="selectSubject(subject)" ng-repeat="subject in subjectList"><center><span>{{subject.asignatura}}</span></center></li>
+    <li ng-click="selectSubject()"><center><span>Cualquiera, soy ingeniero</span></center></li>
+  </ul>
+</div>

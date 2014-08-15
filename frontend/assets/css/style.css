@@ -7,12 +7,12 @@
 	border-radius: 5px;
 }
 
-.question-id, .asnwers-tag {
+.question-id, .asnwers-tag, .subjects-tag {
 	font-size: 22px;
 	color: #FFF;
 }
 
-.answers li {
+.answers li, .subjects li {
 	cursor: pointer;
 	font-size: 26px;
 	list-style: none;
