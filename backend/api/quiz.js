@@ -58,7 +58,16 @@ exports.listSubjects = function(req, res, next) {
 }
 
 exports.randomQuestion = function(req, res, next) {
-	Query(Queries.SEL_ALL_QUESTIONS_ID, [])
+	var query = Queries.SEL_ALL_QUESTIONS_ID;
+	var queryParams = [];
+
+	if (req.params.subjectid)
+	{
+		query = Queries.SEL_QUESTIONS_FILTERED_BY_SUBJECT;
+		queryParams = [req.params.subjectid];
+	}
+
+	Query(query, queryParams)
 		.success( function(rows) { exports.loadQuestion(req, res, next, rows[Math.floor(Math.random()*rows.length)].id) } )
 		.error( function(err) { res.json(500, {code: 1, msg: err}) } );
 }
