@@ -42,7 +42,7 @@ angular.module('hipsTestApp', [])
                     $('#question .MathJax').remove();
                     $scope.loadingNextQuestion = false
                     $scope.question = data.data;
-                    $scope.question.answers = shuffle($scope.question.answers);
+                    $scope.question.answers = moveLastAnswers(shuffle($scope.question.answers));
                     $scope.question.answered = false;
 
                     $scope.questionHistory.push($scope.question);
@@ -97,6 +97,29 @@ angular.module('hipsTestApp', [])
                 $scope.question = $scope.questionHistory[newIdx];
             else // Getting new remote question
                 $scope.getRandomQuestion();
+        }
+
+        /*
+            Busca las respuestas que probablemente tengan que ir ultimas y las coloca al final,
+            tipicamente "Las anteriores son XXXX", "Todas las anteriores", ...
+
+            Por ahora los criterios de eleccion son:
+                * Contiene la palabra "anteriores"
+        */
+        function moveLastAnswers(answers) {
+            var result = [];
+            var atEndArr = [];
+            var pendingIdx = [];
+
+            answers.forEach( function(answer) {
+                if (answer.contenido.indexOf('anteriores') >= 0)
+                    atEndArr.push(answer);
+                else
+                    result.push(answer);
+            });
+
+            result.concat(atEndArr);
+            return result;
         }
 
         /* SUBJECT HANDLING STUFF */
