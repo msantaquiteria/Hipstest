@@ -33,11 +33,11 @@ angular.module('hipsTestApp', [])
         $scope.getRandomQuestion = function() {
             $scope.loadingNextQuestion = true;
 
-            var apiRoute = '/api/question/random/';
+            var apiRoute = '/question/random/';
             if ($scope.isSubjectslected() && $scope.currentSubject !== undefined)
                 apiRoute += $scope.currentSubject.id;
 
-            $http.get(apiRoute)
+            apiGET(apiRoute)
                 .success( function(data) {
                     $('#question .MathJax').remove();
                     $scope.loadingNextQuestion = false
@@ -53,10 +53,7 @@ angular.module('hipsTestApp', [])
 
                     // Force Rerender of MathJax
                     $timeout ( function() { MathJax.Hub.Typeset("question") } );
-                })
-                .error( function(err) {
-                    console.log("ERROR: " + JSON.stringify(err));
-                })
+                });
         }
 
         $scope.pickAnswer = function(answer, $event) {
@@ -133,18 +130,23 @@ angular.module('hipsTestApp', [])
         }
 
         $scope.getSubjectsList = function() {
-            $http.get('/api/subject')
+            apiGET('/subject')
                 .success( function(data) {
                     $scope.subjectList = data.data;
-                })
-                .error( function(err) {
-                    console.log("ERROR: " + JSON.stringify(err));
-                })
+                });
         }
 
         // Helper para evitar confusiones y expresiones booleanas largas
         $scope.isSubjectslected = function() {
             return $scope.currentSubject !== null;
+        }
+
+        /* COMMON HELPERS */
+        function apiGET(route) {
+            return $http.get('/api' + route)
+                    .error( function(err) {
+                        console.log("ERROR: " + JSON.stringify(err));
+                    });
         }
 
         /* INICIALIZACION DE LA APP, SIEMPRE AL FINAL*/
