@@ -115,7 +115,7 @@ angular.module('hipsTestApp', [])
                     result.push(answer);
             });
 
-            result.concat(atEndArr);
+            result = result.concat(atEndArr);
             return result;
         }
 
